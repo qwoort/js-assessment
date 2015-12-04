@@ -2,170 +2,200 @@ exports = (typeof window === 'undefined') ? global : window;
 
 exports.arraysAnswers = {
 
-  indexOf : function(arr, item) {
-  
-	for(var i = 0; i < arr.length; i++){
-		if(item === arr[i]){
-			return i;
-		}
-	}
-	
-	return -1;
+    indexOf: function (arr, item) {
 
-  },
+        for (var i = 0; i < arr.length; i++) {
+            if (item === arr[i]) {
+                return i;
+            }
+        }
 
-  sum : function(arr) {
+        return -1;
 
-      var buffer = 0;
+    },
 
-      for(var i = 0; i < arr.length; i++){
-          buffer += arr[i];
-      }
+    sum: function (arr) {
 
-      return buffer;
+        var buffer = 0;
 
-  },
+        for (var i = 0; i < arr.length; i++) {
+            buffer += arr[i];
+        }
 
-  remove : function(arr, item) {
+        return buffer;
 
-      var buffer = [];
+    },
 
-      for(var i = 0; i < arr.length; i++){
-          if(item !== arr[i]){
-              buffer[buffer.length] = arr[i];
-          }
-      }
+    remove: function (arr, item) {
 
-      return buffer;
+        function removeElement(array, i) {
+            for (var j = i; j < array.length - 1; j++) {
+                array[j] = array[j + 1];
+            }
+            array.length--;
+        }
 
-  },
+        for (var i = 0; i < arr.length; i++) {
+            while (item === arr[i]) {
+                removeElement(arr, i);
+            }
+        }
 
-  removeWithoutCopy : function(arr, item) {
+        return arr;
 
-      function removeElement(array, i){
-          for(var j = i; j < array.length - 1; j++){
-              array[j] = array[j+1];
-          }
-          array.length--;
-      }
+    },
 
-      for(var i = 0; i < arr.length; i++){
-          while(item === arr[i]){
-              removeElement(arr, i);
-          }
-      }
+    removeWithoutCopy: function (arr, item) {
 
-      return arr;
-  },
+        function removeElement(array, i) {
+            for (var j = i; j < array.length - 1; j++) {
+                array[j] = array[j + 1];
+            }
+            array.length--;
+        }
 
-  append : function(arr, item) {
-      arr[arr.length] = item;
-      return arr;
-  },
+        for (var i = 0; i < arr.length; i++) {
+            while (item === arr[i]) {
+                removeElement(arr, i);
+            }
+        }
 
-  truncate : function(arr) {
-      arr.length--;
-      return arr;
-  },
+        return arr;
+    },
 
-  prepend : function(arr, item) {
+    append: function (arr, item) {
 
-      var length = arr.length;
+        arr[arr.length] = item;
 
-      for(var i = length; i >= 0; i--){
-          arr[i] = arr[i-1];
-      }
+        return arr;
+    },
 
-      arr[0] = item;
+    truncate: function (arr) {
 
-      return arr;
-  },
+        arr.length--;
 
-  curtail : function(arr) {
-      for(var i = 0; i < arr.length; i++){
-          arr[i] = arr[i+1];
-      }
-      arr.length--;
-      return arr;
-  },
+        return arr;
+    },
 
-  concat : function(arr1, arr2) {
+    prepend: function (arr, item) {
 
-      for(var i = 0; i < arr2.length; i++){
-          arr1[arr1.length] = arr2[i];
-      }
+        var length = arr.length;
 
-      return arr1;
+        for (var i = length; i >= 0; i--) {
+            arr[i] = arr[i - 1];
+        }
 
-  },
+        arr[0] = item;
 
-  insert : function(arr, item, index) {
+        return arr;
+    },
 
-      for(var i = arr.length; i > index; i--){
-          arr[i] = arr[i-1];
-      }
+    curtail: function (arr) {
 
-      arr[index] = item;
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = arr[i + 1];
+        }
 
-      return arr;
-  },
+        arr.length--;
 
-  count : function(arr, item) {
+        return arr;
+    },
 
-      var cnt = 0;
+    concat: function (arr1, arr2) {
 
-      for(var i = 0; i < arr.length; i++){
-          (arr[i] === item) && (
-              cnt++
-          )
-      }
+        for (var i = 0; i < arr2.length; i++) {
+            arr1[arr1.length] = arr2[i];
+        }
 
-      return cnt;
-  },
+        return arr1;
 
-  duplicates : function(arr) {
+    },
 
-      var dups = {};
+    insert: function (arr, item, index) {
 
-      for(var i = 0; i < arr.length; i++){
-          if(dups[arr[i]] !== undefined){
-              dups[arr[i]]++;
-          } else {
-              dups[arr[i]] = 0;
-          }
-      }
+        for (var i = arr.length; i > index; i--) {
+            arr[i] = arr[i - 1];
+        }
 
-      //for(var i = 0; i < arr.length; i++){
-      //    var element = [arr[i]]; // TODO: так работать не будет
-      //    if(element !== undefined){
-      //        element++;
-      //    } else {
-      //        element = 0;
-      //    }
-      //}
+        arr[index] = item;
 
-      var buffer = [];
+        return arr;
+    },
 
-      for(var i in dups){
-          dups[i] > 0 ? buffer[buffer.length] = +i : 0;
-      }
+    count: function (arr, item) {
 
-      return buffer;
+        var cnt = 0;
 
-  },
+        for (var i = 0; i < arr.length; i++) {
+            if(arr[i] === item) {
+                cnt++;
+            }
+        }
 
-  square : function(arr) {
-      for(var i = 0; i < arr.length; i++){
-          arr[i] = arr[i]*arr[i];
-      }
-      return arr;
-  },
+        return cnt;
+    },
 
-  findAllOccurrences : function(arr, target) {
-      var buffer = [];
-      for(var i = 0; i < arr.length; i++){
-          arr[i] === target && (buffer[buffer.length] = i);
-      }
-      return buffer;
-  }
+    duplicates: function (arr) {
+
+        var duplications = [];
+
+        var sawn = [];
+
+        function elementIsSawn(element){
+
+            for(var i = 0; i < sawn.length; i++){
+                if(sawn[i] === element){
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function elementIsInDuplicatedAgain(element){
+
+            for(var i = 0; i < duplications.length; i++){
+                if(duplications[i] === element){
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        for (var i = 0; i < arr.length; i++) {
+
+            if(elementIsSawn(arr[i])){
+                if(!elementIsInDuplicatedAgain(arr[i])){
+                    duplications[duplications.length] = arr[i];
+                }
+
+            } else {
+                sawn[sawn.length] = arr[i];
+            }
+        }
+
+        return duplications;
+
+    },
+
+    square: function (arr) {
+
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = arr[i] * arr[i];
+        }
+
+        return arr;
+    },
+
+    findAllOccurrences: function (arr, target) {
+
+        var buffer = [];
+
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] === target && (buffer[buffer.length] = i);
+        }
+
+        return buffer;
+    }
 };
